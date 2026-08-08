@@ -1,0 +1,28 @@
+<svg viewBox="0 0 680 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="実際のHTTPレスポンス例を、ステータスライン・ヘッダー・空行・ボディの4部構成に色分けして示す図">
+  <rect width="680" height="260" fill="#ffffff" />
+
+  <!-- status line -->
+  <rect x="20" y="14" width="420" height="26" rx="4" fill="#eef0fb" stroke="#3a56b0" stroke-width="1.2" />
+  <text x="30" y="32" font-family="ui-monospace, Menlo, monospace" font-size="13" fill="#1c2436">HTTP/1.0 200 OK</text>
+  <text x="460" y="32" font-family="sans-serif" font-size="12" fill="#3a56b0">ステータスライン</text>
+
+  <!-- headers -->
+  <rect x="20" y="46" width="420" height="74" rx="4" fill="#f4f6f9" stroke="#1c2436" stroke-width="1.2" />
+  <text x="30" y="66" font-family="ui-monospace, Menlo, monospace" font-size="12.5" fill="#1c2436">Server: SimpleHTTP/0.6 Python/3.14.4</text>
+  <text x="30" y="86" font-family="ui-monospace, Menlo, monospace" font-size="12.5" fill="#1c2436">Content-type: text/html; charset=utf-8</text>
+  <text x="30" y="106" font-family="ui-monospace, Menlo, monospace" font-size="12.5" fill="#1c2436">Content-Length: 369</text>
+  <text x="460" y="88" font-family="sans-serif" font-size="12" fill="#1c2436">ヘッダー</text>
+  <text x="460" y="104" font-family="sans-serif" font-size="10.5" fill="#5c6577">（付加情報。複数行）</text>
+
+  <!-- blank line -->
+  <rect x="20" y="128" width="420" height="16" rx="2" fill="none" stroke="#5c6577" stroke-width="1" stroke-dasharray="3 3" />
+  <text x="460" y="140" font-family="sans-serif" font-size="12" fill="#5c6577">空行（区切り）</text>
+
+  <!-- body -->
+  <rect x="20" y="152" width="420" height="70" rx="4" fill="#e9ece3" stroke="#5c7048" stroke-width="1.2" />
+  <text x="30" y="174" font-family="ui-monospace, Menlo, monospace" font-size="12.5" fill="#1c2436">&lt;!DOCTYPE HTML&gt;</text>
+  <text x="30" y="194" font-family="ui-monospace, Menlo, monospace" font-size="12.5" fill="#5c6577">...</text>
+  <text x="460" y="192" font-family="sans-serif" font-size="12" fill="#5c7048">ボディ（本体）</text>
+
+  <text x="230" y="245" text-anchor="middle" font-family="sans-serif" font-size="11.5" fill="#5c6577">この4部構成はリクエストでも同じ。1行目がリクエストラインに変わるだけ</text>
+</svg>
