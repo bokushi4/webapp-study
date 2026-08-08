@@ -14,32 +14,24 @@ MLモデルをプロダクトにするためのWebアプリケーション学習
 ## 全体像
 
 9つのフェーズは3つの塊に分かれる。土台（HTTPとapp server自体の理解）→ 実装（APIとして
-モデルを公開し、データを残す）→ 仕上げ（人が使える形にし、動かし続ける）。矢印は依存関係——
-前段の理解なしに次段のコードを書いても、動く理由が説明できない状態になる。
+モデルを公開し、データを残す）→ 仕上げ（人が使える形にし、動かし続ける）。上から順に
+進める依存関係になっていて、同じ塊の中は多少前後してもよいが、塊をまたぐ先の理解は
+前段が前提になる。
 
-```mermaid
-flowchart LR
-    subgraph 土台["土台 — 仕組みの理解"]
-        P0["Phase 0<br/>HTTPの基礎"]
-        P1["Phase 1<br/>app server"]
-    end
-    subgraph 実装["実装 — APIとデータ"]
-        P2["Phase 2<br/>API設計"]
-        P3["Phase 3<br/>モデルAPI化"]
-        P4["Phase 4<br/>データ永続化"]
-        P5["Phase 5<br/>最小フロント"]
-    end
-    subgraph 仕上げ["仕上げ — 届けて、動かし続ける"]
-        P6["Phase 6<br/>認証とCORS"]
-        P7["Phase 7<br/>デプロイ・運用"]
-        P8["Phase 8<br/>統合プロジェクト"]
-    end
-    P0 --> P1 --> P2 --> P3 --> P4 --> P5 --> P6 --> P7 --> P8
-```
+- **土台 — 仕組みの理解**
+  - Phase 0 — HTTPの基礎
+  - Phase 1 — app server
+- **実装 — APIとデータ**
+  - Phase 2 — API設計
+  - Phase 3 — モデルAPI化
+  - Phase 4 — データ永続化
+  - Phase 5 — 最小フロント
+- **仕上げ — 届けて、動かし続ける**
+  - Phase 6 — 認証とCORS
+  - Phase 7 — デプロイ・運用
+  - Phase 8 — 統合プロジェクト
 
-同じ塊の中は行き来してよいが、塊をまたぐ矢印は前段の理解が前提になる。
-
-図解版（HTML）はこちら: https://claude.ai/code/artifact/f8e0c38c-3ef6-4583-a572-e0ccb6d4aa19
+図解版（フロー図つき）は [docs/roadmap.html](docs/roadmap.html) をブラウザで開いて参照する。
 
 ## 進捗
 

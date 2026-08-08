@@ -1,0 +1,522 @@
+<title>MLモデルをプロダクトにするロードマップ</title>
+<style>
+  :root {
+    --paper: #f4f6f9;
+    --paper-raised: #ffffff;
+    --ink: #1c2436;
+    --muted: #5c6577;
+    --line: #dbe0e8;
+    --accent: #3a56b0;
+    --accent-soft: #e7ecfa;
+    --tone-1: #c6d1f0;
+    --tone-2: #8fa2df;
+    --tone-3: #3a56b0;
+    --code-bg: #101728;
+    --code-ink: #d7deef;
+    --code-line: #232d45;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #10141d;
+      --paper-raised: #171d29;
+      --ink: #e6e9f0;
+      --muted: #97a1b5;
+      --line: #2a3242;
+      --accent: #8ba3ef;
+      --accent-soft: #1c2740;
+      --tone-1: #24304f;
+      --tone-2: #3c4f84;
+      --tone-3: #8ba3ef;
+      --code-bg: #0a0e17;
+      --code-ink: #d7deef;
+      --code-line: #232d45;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --paper: #10141d;
+    --paper-raised: #171d29;
+    --ink: #e6e9f0;
+    --muted: #97a1b5;
+    --line: #2a3242;
+    --accent: #8ba3ef;
+    --accent-soft: #1c2740;
+    --tone-1: #24304f;
+    --tone-2: #3c4f84;
+    --tone-3: #8ba3ef;
+    --code-bg: #0a0e17;
+    --code-ink: #d7deef;
+    --code-line: #232d45;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Yu Gothic", sans-serif;
+    line-height: 1.75;
+    padding: 4rem 1.5rem 6rem;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 880px;
+    margin: 0 auto;
+  }
+
+  .eyebrow {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 0.9rem;
+  }
+
+  h1 {
+    font-family: Georgia, "Iowan Old Style", "Hiragino Mincho ProN", serif;
+    font-size: 2.15rem;
+    line-height: 1.3;
+    letter-spacing: 0.01em;
+    margin: 0 0 1rem;
+    text-wrap: balance;
+  }
+
+  .lede {
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 62ch;
+    margin: 0 0 2.4rem;
+  }
+
+  .usecases {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.9rem;
+    margin-bottom: 3.2rem;
+  }
+
+  .usecase {
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 1rem 1.1rem;
+  }
+
+  .usecase .num {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 0.75rem;
+    color: var(--accent);
+    margin-bottom: 0.35rem;
+    display: block;
+  }
+
+  .usecase p {
+    margin: 0;
+    font-size: 0.92rem;
+    color: var(--ink);
+  }
+
+  section.map {
+    margin-bottom: 3.6rem;
+  }
+
+  h2 {
+    font-family: Georgia, "Iowan Old Style", serif;
+    font-size: 1.3rem;
+    margin: 0 0 0.3rem;
+  }
+
+  .section-note {
+    color: var(--muted);
+    font-size: 0.92rem;
+    margin: 0 0 1.4rem;
+    max-width: 62ch;
+  }
+
+  figure {
+    margin: 0;
+  }
+
+  .diagram-wrap {
+    overflow-x: auto;
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 1.4rem 1.2rem 1rem;
+  }
+
+  svg { display: block; width: 100%; height: auto; }
+
+  figcaption {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-top: 0.7rem;
+  }
+
+  .legend {
+    display: flex;
+    gap: 1.4rem;
+    margin-top: 0.9rem;
+    font-size: 0.78rem;
+    color: var(--muted);
+    flex-wrap: wrap;
+  }
+
+  .legend span.swatch {
+    display: inline-block;
+    width: 0.7em;
+    height: 0.7em;
+    border-radius: 2px;
+    margin-right: 0.4em;
+    vertical-align: -0.05em;
+  }
+
+  .phase {
+    border-top: 1px solid var(--line);
+    padding: 2.1rem 0;
+  }
+  .phase:last-of-type { border-bottom: 1px solid var(--line); }
+
+  .phase-head {
+    display: flex;
+    align-items: baseline;
+    gap: 0.9rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .phase-num {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 0.85rem;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 0.15rem 0.55rem;
+    border-radius: 6px;
+    white-space: nowrap;
+  }
+
+  .phase-title {
+    font-family: Georgia, "Iowan Old Style", serif;
+    font-size: 1.28rem;
+    margin: 0;
+  }
+
+  .phase-group {
+    margin-left: auto;
+    font-size: 0.72rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .phase-body p {
+    margin: 0.55rem 0;
+  }
+
+  .phase-body .why {
+    color: var(--muted);
+  }
+
+  .phase-body strong.tag {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: var(--ink);
+    background: var(--line);
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+    margin-right: 0.5rem;
+  }
+
+  pre {
+    background: var(--code-bg);
+    color: var(--code-ink);
+    border: 1px solid var(--code-line);
+    border-radius: 10px;
+    padding: 1rem 1.1rem;
+    overflow-x: auto;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    margin: 0.8rem 0;
+  }
+
+  code {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  }
+
+  .first-step {
+    margin-top: 3.2rem;
+    background: var(--accent-soft);
+    border-radius: 14px;
+    padding: 1.6rem 1.7rem 1.8rem;
+  }
+
+  .first-step h2 { margin-top: 0; }
+
+  @media (max-width: 640px) {
+    .usecases { grid-template-columns: 1fr; }
+    .phase-group { display: none; }
+  }
+</style>
+
+<div class="page">
+  <p class="eyebrow">Learning Roadmap · Python-first</p>
+  <h1>MLモデルをプロダクトにするための<br>Webアプリケーション学習ロードマップ</h1>
+  <p class="lede">
+    モデルや分析ロジックを作る力はすでにある。ここで埋めるのは、それを
+    「呼び出せる形」にして人に届けるまでの技術——app server・API・
+    最低限のフロントエンド・運用の部分。
+  </p>
+
+  <div class="usecases">
+    <div class="usecase">
+      <span class="num">USE CASE 1</span>
+      <p>既存のMLモデルをHTTP経由で呼び出せるAPIとして公開する</p>
+    </div>
+    <div class="usecase">
+      <span class="num">USE CASE 2</span>
+      <p>そのAPIを叩く最低限のフロントエンド（社内ダッシュボード等）を用意する</p>
+    </div>
+    <div class="usecase">
+      <span class="num">USE CASE 3</span>
+      <p>app serverの仕組みを理解し、本番運用で起きることを自力で判断できるようになる</p>
+    </div>
+  </div>
+
+  <section class="map">
+    <h2>全体像</h2>
+    <p class="section-note">
+      9つのフェーズは3つの塊に分かれる。土台（HTTPとapp server自体の理解）→
+      実装（APIとしてモデルを公開し、データを残す）→ 仕上げ（人が使える形にし、
+      動かし続ける）。矢印は依存関係——前段の理解なしに次段のコードを書いても、
+      動く理由が説明できない状態になる。
+    </p>
+    <figure>
+      <div class="diagram-wrap">
+        <svg viewBox="0 0 900 460" role="img" aria-label="学習ロードマップの9フェーズを土台・実装・仕上げの3グループに分け、Phase0からPhase8まで蛇行状の矢印でつないだ図">
+          <defs>
+            <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor" />
+            </marker>
+          </defs>
+
+          <!-- row backgrounds by group -->
+          <rect x="20" y="20" width="480" height="90" rx="10" fill="var(--tone-1)" opacity="0.5" />
+          <rect x="20" y="150" width="860" height="90" rx="10" fill="var(--tone-2)" opacity="0.35" />
+          <rect x="420" y="280" width="460" height="90" rx="10" fill="var(--tone-1)" opacity="0.5" />
+
+          <!-- Row 0: Phase 0, 1 (foundation) -->
+          <g font-family="ui-monospace, SF Mono, Menlo, monospace">
+            <!-- Phase 0 -->
+            <rect x="40" y="35" width="160" height="60" rx="8" fill="var(--paper-raised)" stroke="var(--tone-3)" stroke-width="1.5"/>
+            <text x="120" y="58" text-anchor="middle" font-size="11" fill="var(--muted)">PHASE 0</text>
+            <text x="120" y="76" text-anchor="middle" font-size="13" fill="var(--ink)" font-family="Georgia, serif">HTTPの基礎</text>
+
+            <!-- Phase 1 -->
+            <rect x="280" y="35" width="160" height="60" rx="8" fill="var(--paper-raised)" stroke="var(--tone-3)" stroke-width="1.5"/>
+            <text x="360" y="58" text-anchor="middle" font-size="11" fill="var(--muted)">PHASE 1</text>
+            <text x="360" y="76" text-anchor="middle" font-size="13" fill="var(--ink)" font-family="Georgia, serif">app server</text>
+
+            <!-- Phase 2 (top right, feeds into row 1) -->
+            <rect x="700" y="35" width="160" height="60" rx="8" fill="var(--paper-raised)" stroke="var(--tone-3)" stroke-width="1.5"/>
+            <text x="780" y="58" text-anchor="middle" font-size="11" fill="var(--muted)">PHASE 2</text>
+            <text x="780" y="76" text-anchor="middle" font-size="13" fill="var(--ink)" font-family="Georgia, serif">API設計</text>
+
+            <!-- Row 1: Phase 3,4,5 (right to left) -->
+            <rect x="700" y="165" width="160" height="60" rx="8" fill="var(--paper-raised)" stroke="var(--tone-3)" stroke-width="1.5"/>
+            <text x="780" y="188" text-anchor="middle" font-size="11" fill="var(--muted)">PHASE 3</text>
+            <text x="780" y="206" text-anchor="middle" font-size="13" fill="var(--ink)" font-family="Georgia, serif">モデルAPI化</text>
+
+            <rect x="460" y="165" width="160" height="60" rx="8" fill="var(--paper-raised)" stroke="var(--tone-3)" stroke-width="1.5"/>
+            <text x="540" y="188" text-anchor="middle" font-size="11" fill="var(--muted)">PHASE 4</text>
+            <text x="540" y="206" text-anchor="middle" font-size="13" fill="var(--ink)" font-family="Georgia, serif">データ永続化</text>
+
+            <rect x="40" y="165" width="160" height="60" rx="8" fill="var(--paper-raised)" stroke="var(--tone-3)" stroke-width="1.5"/>
+            <text x="120" y="188" text-anchor="middle" font-size="11" fill="var(--muted)">PHASE 5</text>
+            <text x="120" y="206" text-anchor="middle" font-size="13" fill="var(--ink)" font-family="Georgia, serif">最小フロント</text>
+
+            <!-- Row 2: Phase 6,7,8 (left to right) -->
+            <rect x="440" y="295" width="160" height="60" rx="8" fill="var(--paper-raised)" stroke="var(--tone-3)" stroke-width="1.5"/>
+            <text x="520" y="318" text-anchor="middle" font-size="11" fill="var(--muted)">PHASE 6</text>
+            <text x="520" y="336" text-anchor="middle" font-size="13" fill="var(--ink)" font-family="Georgia, serif">認証とCORS</text>
+
+            <rect x="640" y="295" width="160" height="60" rx="8" fill="var(--paper-raised)" stroke="var(--tone-3)" stroke-width="1.5"/>
+            <text x="720" y="318" text-anchor="middle" font-size="11" fill="var(--muted)">PHASE 7</text>
+            <text x="720" y="336" text-anchor="middle" font-size="13" fill="var(--ink)" font-family="Georgia, serif">デプロイ・運用</text>
+
+            <rect x="700" y="380" width="160" height="60" rx="8" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.8"/>
+            <text x="780" y="403" text-anchor="middle" font-size="11" fill="var(--accent)">PHASE 8</text>
+            <text x="780" y="421" text-anchor="middle" font-size="13" fill="var(--ink)" font-family="Georgia, serif" font-weight="600">統合プロジェクト</text>
+          </g>
+
+          <!-- arrows, currentColor via stroke=var(--muted) -->
+          <g stroke="var(--muted)" stroke-width="1.6" fill="none">
+            <!-- 0 -> 1 -->
+            <line x1="200" y1="65" x2="278" y2="65" marker-end="url(#arrow)" />
+            <!-- 1 -> 2 -->
+            <line x1="440" y1="65" x2="698" y2="65" marker-end="url(#arrow)" />
+            <!-- 2 -> 3 (down) -->
+            <path d="M 780 95 V 163" marker-end="url(#arrow)" />
+            <!-- 3 -> 4 -->
+            <line x1="698" y1="195" x2="622" y2="195" marker-end="url(#arrow)" />
+            <!-- 4 -> 5 -->
+            <line x1="458" y1="195" x2="202" y2="195" marker-end="url(#arrow)" />
+            <!-- 5 -> 6 (down, then right) -->
+            <path d="M 120 227 V 260 H 520 V 293" marker-end="url(#arrow)" />
+            <!-- 6 -> 7 -->
+            <line x1="602" y1="325" x2="638" y2="325" marker-end="url(#arrow)" />
+            <!-- 7 -> 8 (down) -->
+            <path d="M 750 357 V 378" marker-end="url(#arrow)" />
+          </g>
+        </svg>
+      </div>
+      <div class="legend">
+        <span><span class="swatch" style="background:var(--tone-1)"></span>土台 — 仕組みの理解</span>
+        <span><span class="swatch" style="background:var(--tone-2)"></span>実装 — APIとデータ</span>
+        <span><span class="swatch" style="background:var(--tone-1)"></span>仕上げ — 人に届け、動かし続ける</span>
+      </div>
+      <figcaption>Phase 0から8までの依存順序。同じ塊の中は行き来してよいが、塊をまたぐ矢印は前段の理解が前提になる。</figcaption>
+    </figure>
+  </section>
+
+  <section class="phases">
+    <h2 style="margin-bottom: 1.8rem;">各フェーズの詳細</h2>
+
+    <div class="phase">
+      <div class="phase-head">
+        <span class="phase-num">PHASE 0</span>
+        <h3 class="phase-title">HTTPとクライアント・サーバーモデル</h3>
+        <span class="phase-group">土台</span>
+      </div>
+      <div class="phase-body">
+        <p class="why">なぜ: ブラウザとサーバーが何をやり取りしているかが体に入っていないと、この先すべてのエラーが「なぜ動かないか分からない魔法」になる。</p>
+        <p><strong class="tag">仕組み</strong>リクエスト/レスポンス、メソッド（GET/POST）、ステータスコード、ヘッダー、ボディ。これは特定の言語やフレームワークに属さない、Web全体の共通言語。</p>
+        <p><strong class="tag">手を動かす</strong>Pythonの標準ライブラリだけで最小サーバーを立て、curlとブラウザ両方から観察する。</p>
+        <pre>python3 -m http.server 8000
+# 別ターミナルから
+curl -v http://localhost:8000</pre>
+        <p><code>-v</code>で表示される生のヘッダーを読み、ブラウザの開発者ツール（Networkタブ）で同じ通信を見比べる。</p>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-head">
+        <span class="phase-num">PHASE 1</span>
+        <h3 class="phase-title">アプリケーションサーバーとASGI/WSGI</h3>
+        <span class="phase-group">土台</span>
+      </div>
+      <div class="phase-body">
+        <p class="why">なぜ: 明示的に理解したいと挙げていた部分。「Pythonの関数」と「HTTPリクエストを受けられるサービス」の間に何が挟まっているかを知らないと、本番で起きる詰まりを自分で切り分けられない。</p>
+        <p><strong class="tag">仕組み</strong>Webサーバー（Nginx等・静的配信とプロキシ）、アプリケーションサーバー（Gunicorn/Uvicorn・プロセス/ワーカー管理）、アプリケーションコード（あなたが書くPython）の3層は役割が別。ASGI/WSGIはアプリケーションサーバーとアプリケーションコードの間の「呼び出し規約」——サーバーがどんな形でリクエストをPython関数に渡すかの約束事。WSGIは同期・1リクエスト1スレッド前提、ASGIは非同期・並行リクエストを1プロセスで捌ける設計。</p>
+        <p><strong class="tag">手を動かす</strong>FastAPI（ASGI前提のフレームワーク）を素のUvicornで起動し、リクエストのライフサイクルをログで観察する。</p>
+        <pre>pip install fastapi uvicorn
+
+# main.py
+from fastapi import FastAPI
+app = FastAPI()
+
+@app.get("/ping")
+async def ping():
+    return {"status": "ok"}
+
+uvicorn main:app --reload --log-level debug</pre>
+        <p>次に <code>time.sleep</code>を挟んだ同期エンドポイントと<code>asyncio.sleep</code>を挟んだ非同期エンドポイントを両方作り、複数タブから同時にアクセスして応答速度の違いを実際に見る。ここでASGIが「なぜ並行処理に強いか」が説明ではなく体験として分かる。</p>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-head">
+        <span class="phase-num">PHASE 2</span>
+        <h3 class="phase-title">バックエンドAPI設計の基礎</h3>
+        <span class="phase-group">実装</span>
+      </div>
+      <div class="phase-body">
+        <p><strong class="tag">仕組み</strong>ルーティング（URLと関数の対応）、リクエスト/レスポンスの型定義（Pydanticモデル）、バリデーション、自動生成されるAPIドキュメント（OpenAPI）。</p>
+        <p><strong class="tag">手を動かす</strong>簡単なCRUD API（例: メモやタスクの登録・取得・削除）を1つ作り切る。<code>/docs</code>にアクセスして自動生成されたAPI仕様を確認する。</p>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-head">
+        <span class="phase-num">PHASE 3</span>
+        <h3 class="phase-title">MLモデルをAPI化する</h3>
+        <span class="phase-group">実装</span>
+      </div>
+      <div class="phase-body">
+        <p class="why">なぜ: ここが本丸。手元の分析コードを「呼び出し可能なサービス」に変える工程そのもの。</p>
+        <p><strong class="tag">仕組み</strong>モデルをいつロードするか（起動時に1回ロードして使い回す vs リクエスト毎にロード——後者は遅く、事故のもと）、入出力スキーマの設計（Pydanticでモデルの入力特徴量・出力を型として固定する）、推論処理が重い場合にPhase 1の非同期の話がどう効いてくるか（CPUバウンドな推論はasyncの恩恵を受けにくく、別プロセス/スレッドプールに逃がす判断が要る）。</p>
+        <p><strong class="tag">手を動かす</strong>scikit-learnの簡単な分類器（またはあなたの手元にある実際のモデル）を<code>joblib</code>で保存し、FastAPIの起動イベントでロード、推論エンドポイントとして公開する。</p>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-head">
+        <span class="phase-num">PHASE 4</span>
+        <h3 class="phase-title">データの永続化</h3>
+        <span class="phase-group">実装</span>
+      </div>
+      <div class="phase-body">
+        <p><strong class="tag">仕組み</strong>DBの基本（テーブル・主キー・外部キー）、ORM（PythonオブジェクトとSQLの対応づけ）、マイグレーション（スキーマ変更の履歴管理）。</p>
+        <p><strong class="tag">手を動かす</strong>SQLiteとSQLAlchemyで、Phase 3の推論API呼び出しごとに「入力・出力・タイムスタンプ」を記録するテーブルを作る。</p>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-head">
+        <span class="phase-num">PHASE 5</span>
+        <h3 class="phase-title">最低限のフロントエンド</h3>
+        <span class="phase-group">実装</span>
+      </div>
+      <div class="phase-body">
+        <p class="why">なぜ: JS/TSフルスタックへ深入りする方針ではないので、ここは「APIを人が触れる画面にする」ための最小限にとどめる。</p>
+        <p><strong class="tag">仕組み</strong>HTMLフォーム、<code>fetch</code>によるAPI呼び出し、JSONの受け渡し。フレームワークなしの素のHTML/JSで十分。</p>
+        <p><strong class="tag">手を動かす</strong>Phase 3の推論APIを叩き、結果を表示する1枚のHTMLページを作る。FastAPI側で静的ファイルとして配信する。</p>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-head">
+        <span class="phase-num">PHASE 6</span>
+        <h3 class="phase-title">認証・CORS・秘密情報の扱い</h3>
+        <span class="phase-group">仕上げ</span>
+      </div>
+      <div class="phase-body">
+        <p><strong class="tag">仕組み</strong>社内の複数人が使う前提で最低限必要になるもの——APIキーやトークンによる認証、ブラウザのCORS制約（フロントとAPIのオリジンが違う場合に何が起きるか）、環境変数によるsecrets管理（コードにキーを埋め込まない）。</p>
+        <p><strong class="tag">手を動かす</strong>Phase 3のAPIに簡単なAPIキー認証を追加し、キーなしのリクエストが拒否されることを確認する。</p>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-head">
+        <span class="phase-num">PHASE 7</span>
+        <h3 class="phase-title">デプロイと運用</h3>
+        <span class="phase-group">仕上げ</span>
+      </div>
+      <div class="phase-body">
+        <p class="why">なぜ: Phase 1で学んだapp serverの理解を、実際の運用構成として完成させる段階。</p>
+        <p><strong class="tag">仕組み</strong>Uvicorn単体（開発用）からGunicorn配下でUvicornワーカーを複数動かす構成（本番向け・プロセスを増やして並行性を確保）への移行、リバースプロキシ（Nginx等が静的配信・TLS終端・複数アプリの振り分けを担う）、コンテナ化（環境差異の排除）、ヘルスチェック。</p>
+        <p><strong class="tag">手を動かす</strong>これまで作ったAPIをDockerイメージにし、<code>docker-compose</code>でAPIコンテナとDBコンテナを一緒に起動する。ローカルで本番に近い構成を再現する。</p>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-head">
+        <span class="phase-num">PHASE 8</span>
+        <h3 class="phase-title">統合プロジェクト</h3>
+        <span class="phase-group">仕上げ</span>
+      </div>
+      <div class="phase-body">
+        <p class="why">なぜ: 個々の技術要素は分かっても、全部を1つのプロダクトとしてつなげた経験がないと「実装できる」とは言えない。</p>
+        <p><strong class="tag">作るもの</strong>ここまでの要素を通しで使い、業務で扱っているものに近いテーマのミニプロダクトを1つ作り切る——モデル推論API＋推論ログのDB保存＋最小フロント＋認証＋Docker化。冒頭の3つのユースケースがすべて満たされた状態がゴール。</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="first-step">
+    <h2>最初の一歩</h2>
+    <p>Phase 0から始める。上の<code>python3 -m http.server 8000</code>を実行し、curlとブラウザの両方でアクセスして、返ってくるヘッダーとステータスコードを実際に見るところから。ここで見えたものが、Phase 1以降で作るものすべての土台になる。</p>
+  </div>
+</div>
