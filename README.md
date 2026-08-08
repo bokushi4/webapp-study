@@ -67,6 +67,8 @@ curl -v http://localhost:8000
 `-v`で表示される生のヘッダーを読み、ブラウザの開発者ツール（Networkタブ）で同じ通信を
 見比べる。
 
+学習ノート: [notes/phase0.md](notes/phase0.md)
+
 ### Phase 1 — アプリケーションサーバーとASGI/WSGI
 
 **なぜ**: 「Pythonの関数」と「HTTPリクエストを受けられるサービス」の間に何が挟まっているか
