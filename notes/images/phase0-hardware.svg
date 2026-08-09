@@ -1,38 +1,38 @@
-<svg viewBox="0 0 820 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ディスクに保存されたプログラムがOSによってメモリに読み込まれ、CPUが処理する流れを示す図">
+<svg viewBox="0 0 800 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ディスクに保存されたプログラムがOSによってメモリに読み込まれ、CPUが処理する流れを示す図">
   <defs>
-    <marker id="arrow3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <marker id="arrow3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
       <path d="M 0 0 L 10 5 L 0 10 z" fill="#1c2436" />
     </marker>
   </defs>
 
-  <rect width="820" height="260" fill="#ffffff" />
+  <rect width="800" height="220" fill="#ffffff" />
+
+  <!-- arrow labels, placed above the box row -->
+  <text x="280" y="42" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#1c2436">OSが読み込む</text>
+  <text x="590" y="42" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#1c2436">命令とデータ</text>
+
+  <!-- arrows -->
+  <line x1="222" y1="110" x2="338" y2="110" stroke="#1c2436" stroke-width="1.8" marker-end="url(#arrow3)" />
+  <line x1="542" y1="100" x2="638" y2="100" stroke="#1c2436" stroke-width="1.8" marker-end="url(#arrow3)" />
+  <line x1="638" y1="120" x2="542" y2="120" stroke="#1c2436" stroke-width="1.8" marker-end="url(#arrow3)" />
 
   <!-- Disk box -->
-  <rect x="20" y="95" width="170" height="90" rx="10" fill="#f4f6f9" stroke="#1c2436" stroke-width="1.4" />
-  <text x="105" y="123" text-anchor="middle" font-family="Georgia, serif" font-size="14" fill="#1c2436">ディスク</text>
-  <text x="105" y="143" text-anchor="middle" font-family="ui-monospace, Menlo, monospace" font-size="10.5" fill="#5c6577">main.py</text>
-  <text x="105" y="160" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#5c6577">設計図。まだ動いていない</text>
+  <rect x="40" y="60" width="180" height="100" rx="10" fill="#f4f6f9" stroke="#1c2436" stroke-width="1.4" />
+  <text x="130" y="88" text-anchor="middle" font-family="Georgia, serif" font-size="14" fill="#1c2436">ディスク</text>
+  <text x="130" y="110" text-anchor="middle" font-family="ui-monospace, Menlo, monospace" font-size="10.5" fill="#5c6577">main.py</text>
+  <text x="130" y="128" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#5c6577">設計図。まだ動いていない</text>
 
   <!-- Memory box -->
-  <rect x="330" y="95" width="200" height="90" rx="10" fill="#eef0fb" stroke="#3a56b0" stroke-width="1.6" />
-  <text x="430" y="123" text-anchor="middle" font-family="Georgia, serif" font-size="14" fill="#1c2436">メモリ (RAM)</text>
-  <text x="430" y="143" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#3a56b0">実行中のプロセス</text>
-  <text x="430" y="160" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#5c6577">電源を切ると消える</text>
+  <rect x="340" y="60" width="200" height="100" rx="10" fill="#eef0fb" stroke="#3a56b0" stroke-width="1.6" />
+  <text x="440" y="88" text-anchor="middle" font-family="Georgia, serif" font-size="14" fill="#1c2436">メモリ (RAM)</text>
+  <text x="440" y="110" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#3a56b0">実行中のプロセス</text>
+  <text x="440" y="128" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#5c6577">電源を切ると消える</text>
 
   <!-- CPU box -->
-  <rect x="650" y="95" width="150" height="90" rx="10" fill="#f4f6f9" stroke="#1c2436" stroke-width="1.4" />
-  <text x="725" y="123" text-anchor="middle" font-family="Georgia, serif" font-size="14" fill="#1c2436">CPU</text>
-  <text x="725" y="143" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#5c6577">命令を1つずつ</text>
-  <text x="725" y="160" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#5c6577">処理する部品</text>
+  <rect x="640" y="60" width="140" height="100" rx="10" fill="#f4f6f9" stroke="#1c2436" stroke-width="1.4" />
+  <text x="710" y="88" text-anchor="middle" font-family="Georgia, serif" font-size="14" fill="#1c2436">CPU</text>
+  <text x="710" y="110" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#5c6577">命令を1つずつ</text>
+  <text x="710" y="128" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#5c6577">処理する部品</text>
 
-  <!-- Disk -> Memory -->
-  <line x1="192" y1="140" x2="326" y2="140" stroke="#1c2436" stroke-width="1.8" marker-end="url(#arrow3)" />
-  <text x="259" y="128" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#1c2436">OSが読み込む</text>
-
-  <!-- Memory <-> CPU -->
-  <line x1="532" y1="132" x2="648" y2="132" stroke="#1c2436" stroke-width="1.8" marker-end="url(#arrow3)" />
-  <line x1="648" y1="150" x2="532" y2="150" stroke="#1c2436" stroke-width="1.8" marker-end="url(#arrow3)" />
-  <text x="590" y="120" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#1c2436">命令とデータ</text>
-
-  <text x="410" y="225" text-anchor="middle" font-family="sans-serif" font-size="11.5" fill="#5c6577">ディスクは長期保存用、メモリは実行中の作業スペース。速度と揮発性がトレードオフ</text>
+  <text x="400" y="195" text-anchor="middle" font-family="sans-serif" font-size="11.5" fill="#5c6577">ディスクは長期保存用、メモリは実行中の作業スペース。速度と揮発性がトレードオフ</text>
 </svg>
