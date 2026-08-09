@@ -1,0 +1,45 @@
+<svg viewBox="0 0 560 480" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="python -m http.serverの内部で、接続を受け付けてから do_GET が呼ばれるまでの呼び出しの流れを示す図">
+  <defs>
+    <marker id="arrowhs" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#1c2436" />
+    </marker>
+  </defs>
+
+  <rect width="560" height="480" fill="#ffffff" />
+
+  <rect x="30" y="20" width="500" height="55" rx="8" fill="#eef0fb" stroke="#3a56b0" stroke-width="1.6" />
+  <text x="280" y="43" text-anchor="middle" font-family="Georgia, serif" font-size="13" fill="#1c2436">serve_forever()</text>
+  <text x="280" y="62" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#3a56b0">ソケットが読み込み可能になるのを待ち続ける</text>
+
+  <line x1="280" y1="75" x2="280" y2="103" stroke="#1c2436" stroke-width="1.6" marker-end="url(#arrowhs)" />
+  <text x="360" y="93" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#1c2436">接続が来た</text>
+
+  <rect x="30" y="105" width="500" height="55" rx="8" fill="#f4f6f9" stroke="#1c2436" stroke-width="1.4" />
+  <text x="280" y="128" text-anchor="middle" font-family="Georgia, serif" font-size="13" fill="#1c2436">accept()</text>
+  <text x="280" y="147" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#5c6577">この1つの接続を受け取る</text>
+
+  <line x1="280" y1="160" x2="280" y2="188" stroke="#1c2436" stroke-width="1.6" marker-end="url(#arrowhs)" />
+
+  <rect x="30" y="190" width="500" height="55" rx="8" fill="#f4f6f9" stroke="#1c2436" stroke-width="1.4" />
+  <text x="280" y="213" text-anchor="middle" font-family="Georgia, serif" font-size="13" fill="#1c2436">ThreadingMixIn.process_request()</text>
+  <text x="280" y="232" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#5c6577">この接続専用の新しいスレッドを1本立てる</text>
+
+  <line x1="280" y1="245" x2="280" y2="273" stroke="#1c2436" stroke-width="1.6" marker-end="url(#arrowhs)" />
+  <text x="400" y="263" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#1c2436">そのスレッドの中で</text>
+
+  <rect x="30" y="275" width="500" height="55" rx="8" fill="#eef0fb" stroke="#3a56b0" stroke-width="1.6" />
+  <text x="280" y="298" text-anchor="middle" font-family="Georgia, serif" font-size="13" fill="#1c2436">handle_one_request()</text>
+  <text x="280" y="317" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#3a56b0">リクエスト行を読み、メソッド名を取り出す</text>
+
+  <line x1="280" y1="330" x2="280" y2="358" stroke="#1c2436" stroke-width="1.6" marker-end="url(#arrowhs)" />
+  <text x="400" y="348" text-anchor="middle" font-family="ui-monospace, Menlo, monospace" font-size="10" fill="#1c2436">"do_" + メソッド名</text>
+
+  <rect x="30" y="360" width="500" height="55" rx="8" fill="#f4f6f9" stroke="#1c2436" stroke-width="1.4" />
+  <text x="280" y="383" text-anchor="middle" font-family="ui-monospace, Menlo, monospace" font-size="13" fill="#1c2436">do_GET()</text>
+  <text x="280" y="402" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#5c6577">SimpleHTTPRequestHandlerが持つ実装</text>
+
+  <line x1="280" y1="415" x2="280" y2="443" stroke="#1c2436" stroke-width="1.6" marker-end="url(#arrowhs)" />
+
+  <rect x="30" y="445" width="500" height="30" rx="6" fill="#e9ece3" stroke="#5c7048" stroke-width="1.2" />
+  <text x="280" y="465" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#5c7048">ディスク上のファイルを探し、見つかれば中身をそのまま返す</text>
+</svg>
